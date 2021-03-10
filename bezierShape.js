@@ -19,8 +19,9 @@ class BezierShape{
     }
     
     show(){
-        noStroke()
-        fill(0,100,200)
+        noFill()
+        stroke(0)
+        //fill(0,100,200,50)
         if(this.curves.length != 0){
             beginShape()
             vertex(this.curves[0].p1.x,this.curves[0].p1.y)
