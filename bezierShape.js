@@ -19,12 +19,14 @@ class BezierShape{
     }
     
     show(){
+        noStroke()
+        fill(0,100,200)
         if(this.curves.length != 0){
             beginShape()
             vertex(this.curves[0].p1.x,this.curves[0].p1.y)
             for(let i = 0; i < this.curves.length; i++){
                 let c = this.curves[i]
-                c.guides()
+                //c.guides()
                 let c2
                 if(i != this.curves.length-1){
                     c2 = this.curves[i+1] 

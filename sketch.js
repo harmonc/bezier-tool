@@ -4,8 +4,8 @@ var curr
 var currIndex = -1
 var shapes = []
 var inShape = false
-let names = ['add bezier','clear','new shape','previous bezier','next bezier','smooth shape','save']
-let fs = [addBezier,clearBeziers,newShape,prevBezier,nextBezier,smoothShape, saveShape]
+let names = ['add bezier','clear','new shape','previous bezier','next bezier','smooth shape','save','random shape']
+let fs = [addBezier,clearBeziers,newShape,prevBezier,nextBezier,smoothShape, saveShape, randomShape]
 function setup() {
     createCanvas(600, 600)
     background(255)
@@ -14,6 +14,42 @@ function setup() {
         buttons[i].position(600, 20*i)
         buttons[i].mousePressed(fs[i])
     }
+}
+
+function randomShape(){
+    clearBeziers()
+    let s = new BezierShape();
+    let l = []
+    let n = floor(random(15,25))
+    for(let i = 0; i < n; i++){
+        l[i] = random(20,300)
+    }
+    for(let i = 0; i < n; i++){
+        let a = map(i,0,n,0,TAU)
+        let a2 = map((i+1)%n,0,n,0,TAU)
+        let a3 = a2+PI/2.0
+        curr = new MyBezier()
+        curr.p1 = createVector(300+l[i]*cos(a), 300 + l[i]*sin(a))
+        let l2 = random(l[i]/6.0,l[i]/3.0)
+        curr.a1 = createVector(curr.p1.x + l2 * cos(a3),curr.p1.y + l2 * sin(a3))
+        curr.p2 = createVector(300+l[(i+1)%n]*cos(a2),300+l[(i+1)%n]*sin(a2))
+        let l3 = random(l[(i+1)%n]/6.0,l[(i+1)%n]/3.0)
+        curr.a2 = createVector(curr.p2.x + l3 * cos(a3 + PI),curr.p2.y + l3 * sin(a3 + PI))
+        beziers.push(curr)
+        currIndex = beziers.length-1
+        s.add(curr)
+    }
+    s.smooth()
+    shapes.push(s)
+    inShape = true
+    s.show()
+//    stroke(0)
+//    strokeWeight(2)
+//    point(300,300)
+//    for(let i = 0; i < n; i++){
+//        let a = map(i,0,n,0,TAU)
+//        line(300,300,300+l[i]*cos(a),300+l[i]*sin(a))
+//    }
 }
 
 function draw(){

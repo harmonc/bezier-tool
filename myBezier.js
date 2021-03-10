@@ -7,7 +7,7 @@ class MyBezier{
     this.grabbed = false
       this.grabProp = ''
   }
-  
+    
   show(){
     bezier(this.p1.x,this.p1.y,this.a1.x,this.a1.y,this.a2.x,this.a2.y,this.p2.x,this.p2.y);
   }
